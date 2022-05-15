@@ -42,12 +42,3 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
-//sourceSets {
-//    main {
-//        res.srcDirs = [
-//                'app/src/main/res/drawable/background_music',
-//                '/src/main/res'
-//
-//        ]
-//    }
-//}

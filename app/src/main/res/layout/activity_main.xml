@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".application.MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="154dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="179dp"
+            android:layout_marginBottom="66dp"
+            android:text="@string/welcome_to_aircraftwar"
+            app:layout_constraintBottom_toTopOf="@+id/easy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/easy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="29dp"
+            android:text="@string/easy"
+            app:layout_constraintBottom_toTopOf="@+id/hard"
+            app:layout_constraintEnd_toEndOf="@+id/welcome"
+            app:layout_constraintTop_toBottomOf="@+id/welcome" />
+
+        <Button
+            android:id="@+id/hard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="27dp"
+            android:text="@string/hard"
+            app:layout_constraintBottom_toTopOf="@+id/medium"
+            app:layout_constraintStart_toStartOf="@+id/easy"
+            app:layout_constraintTop_toBottomOf="@+id/easy" />
+
+        <Switch
+            android:id="@+id/musicSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="198dp"
+            android:minHeight="48dp"
+            android:text="音效"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/medium"
+            app:layout_constraintTop_toBottomOf="@+id/medium" />
+
+        <Button
+            android:id="@+id/medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="42dp"
+            android:text="@string/medium"
+            app:layout_constraintBottom_toTopOf="@+id/musicSwitch"
+            app:layout_constraintStart_toStartOf="@+id/hard"
+            app:layout_constraintTop_toBottomOf="@+id/hard" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
