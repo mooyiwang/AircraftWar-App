@@ -68,6 +68,7 @@ public abstract class AbstractFlyingObject {
         this.locationY = locationY;
         this.speedX = speedX;
         this.speedY = speedY;
+        this.image = ImageManager.get(this);
     }
 
     /**
@@ -142,16 +143,18 @@ public abstract class AbstractFlyingObject {
     }
 
     public int getWidth() {
-        if (width == -1){
+        if (image == null || width == -1){
             // 若未设置，则查询图片宽度并设置
+            image = ImageManager.get(this);
             width = image.getWidth();
         }
         return width;
     }
 
     public int getHeight() {
-        if (height == -1){
+        if (image == null || height == -1){
             // 若未设置，则查询图片高度并设置
+            image = ImageManager.get(this);
             height = image.getHeight();
         }
         return height;
