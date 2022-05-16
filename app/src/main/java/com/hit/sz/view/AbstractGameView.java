@@ -554,15 +554,58 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         }
     }
 
-
+    /**
+     * 设置难度背景
+     */
     public abstract void setBackgroundImage();
+
+    /**
+     * hook函数，是否有BOSS
+     * @return boolean
+     */
     public abstract boolean hasBoss();
+
+    /**
+     * boss的血量是否随出现次数的增多而增加
+     * @return boolean
+     */
     public abstract boolean isBossHpUp();
+
+    /**
+     * 设置初始boss阈值
+     * @return scoreThreshold
+     */
     public abstract int setScoreThreshold();
+
+    /**
+     * 设置敌机血量
+     * @return enemyHp
+     */
     public abstract int setEnemyHp();
+
+    /**
+     * 打印难度（好像现在用不上了
+     * @param timeCnt 时间计数器
+     */
     public abstract void hardnessPrint(int timeCnt);
+
+    /**
+     * 设置Boss的射击策略（我之前设置的是普通模式散射3连发，困难散射5连发
+     * @return shootStrategy
+     */
     public abstract ShootStrategy setBossStrategy();
+
+    /**
+     * 设置敌机子弹伤害
+     * @return enemyBulletPower
+     */
     public abstract int setEnemyBulletPower();
+
+    /**
+     * 根据时间控制精英机产生
+     * @param timeCnt 时间计数器
+     * @return boolean
+     */
     public abstract boolean isCreateElite(int timeCnt);
 
 
@@ -640,5 +683,5 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         ImageManager.FIRE_PROP_IMAGE = BitmapFactory.decodeResource(getResources(), R.drawable.prop_bullet);
 
     }
-    
+
 }
