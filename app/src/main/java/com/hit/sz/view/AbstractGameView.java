@@ -24,6 +24,7 @@ import com.hit.sz.item.aircraft.HeroAircraft;
 import com.hit.sz.item.aircraft.MobEnemy;
 import com.hit.sz.item.basic.AbstractFlyingObject;
 import com.hit.sz.item.bullet.BaseBullet;
+import com.hit.sz.item.bullet.HeroBullet;
 import com.hit.sz.item.factory.BossFactory;
 import com.hit.sz.item.factory.EliteFactory;
 import com.hit.sz.item.factory.EnemyFactory;
@@ -265,9 +266,6 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     }
 
     private void shootAction() {
-        if(enemyAircrafts == null || enemyAircrafts.size()==0){
-            return;
-        }
         for(AbstractAircraft enemyAircraft : enemyAircrafts){
             if(!(enemyAircraft instanceof MobEnemy)){
                 List<BaseBullet> enemyBullet = enemyAircraft.shoot();
@@ -281,9 +279,6 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
         }
 
-        if(heroAircraft == null){
-            return;
-        }
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
 
@@ -335,9 +330,6 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
      */
     private void crashCheckAction() {
 
-        if(enemyBullets != null && enemyBullets.size()==0){
-            return;
-        }
         //敌机子弹击中英雄
         for(BaseBullet bullet : enemyBullets){
             if(bullet.notValid()){
@@ -352,9 +344,6 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
             }
         }
 
-        if(heroBullets == null || heroBullets.size() == 0){
-            return;
-        }
         // 英雄子弹攻击敌机
         for (BaseBullet bullet : heroBullets) {
             if (bullet.notValid()) {
@@ -483,18 +472,13 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     //      draw 各部分
     //***********************
     private void paintImageWithPositionRevised(List<? extends AbstractFlyingObject> objects) {
-        if (objects != null && objects.size() == 0) {
-            return;
-        }
-        else {
+        if (objects != null) {
             for (int i=0; i<objects.size(); i++){
+                AbstractFlyingObject obj = objects.get(i);
                 Bitmap image = objects.get(i).getImage();
-
-                assert image != null : objects.getClass().getName() + " has no image! ";
                 canvas.drawBitmap(image, objects.get(i).getLocationX() - image.getWidth()/2, objects.get(i).getLocationY() - image.getHeight()/2, mPaint);
             }
         }
-
     }
 
     private void paintScoreAndLife(Canvas canvas) {
@@ -681,7 +665,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         ImageManager.BLOOD_PROP_IMAGE = BitmapFactory.decodeResource(getResources(), R.drawable.prop_blood);
         ImageManager.BOMB_PROP_IMAGE = BitmapFactory.decodeResource(getResources(), R.drawable.prop_bomb);
         ImageManager.FIRE_PROP_IMAGE = BitmapFactory.decodeResource(getResources(), R.drawable.prop_bullet);
-
+        ImageManager.updateAll();
     }
 
 }

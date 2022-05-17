@@ -59,12 +59,7 @@ public class MainActivity extends AppCompatActivity {
         musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
-                    MainActivity.GAME_SOUND = true;
-                }
-                else{
-                    MainActivity.GAME_SOUND = false;
-                }
+                MainActivity.GAME_SOUND = isChecked;
             }
         });
     }
