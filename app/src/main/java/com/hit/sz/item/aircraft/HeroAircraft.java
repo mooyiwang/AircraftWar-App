@@ -1,7 +1,7 @@
 package com.hit.sz.item.aircraft;
 
 import com.hit.sz.application.ImageManager;
-import com.hit.sz.application.MainActivity;
+import com.hit.sz.activity.LevelSoundActivity;
 import com.hit.sz.item.strategy.ShootStrategy;
 import com.hit.sz.item.strategy.StraightShootUp;
 
@@ -36,8 +36,8 @@ public class HeroAircraft extends AbstractAircraft {
             synchronized (HeroAircraft.class){
                 if(heroAircraft == null){
                     heroAircraft = new HeroAircraft(
-                            MainActivity.screenWidth / 2,
-                            MainActivity.screenHeight - ImageManager.HERO_IMAGE.getHeight() ,
+                            LevelSoundActivity.screenWidth / 2,
+                            LevelSoundActivity.screenHeight - ImageManager.HERO_IMAGE.getHeight() ,
                             0,
                             0,
                             100,

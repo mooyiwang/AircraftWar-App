@@ -9,39 +9,61 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AircraftWarApp">
+        <activity
+            android:name=".activity.UserActivity"
+            android:exported="false" >
+        <intent-filter>
+        <action android:name="package.OtherActivity" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.EntryActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".music.MusicService"
             android:enabled="true"
             android:exported="true" />
+
         <activity
             android:name=".activity.BoardActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".application.MainActivity"
+            android:name=".activity.LevelSoundActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AircraftWarApp.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+
+                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.GameActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

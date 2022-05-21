@@ -1,7 +1,7 @@
 package com.hit.sz.item.bullet;
 
 
-import com.hit.sz.application.MainActivity;
+import com.hit.sz.activity.LevelSoundActivity;
 import com.hit.sz.item.basic.AbstractFlyingObject;
 
 /**
@@ -24,12 +24,12 @@ public abstract class BaseBullet extends AbstractFlyingObject {
         super.forward();
 
         // 判定 x 轴出界
-        if (locationX <= 0 || locationX >= MainActivity.screenWidth) {
+        if (locationX <= 0 || locationX >= LevelSoundActivity.screenWidth) {
             vanish();
         }
 
         // 判定 y 轴出界
-        if (speedY > 0 && locationY >= MainActivity.screenHeight ) {
+        if (speedY > 0 && locationY >= LevelSoundActivity.screenHeight ) {
             // 向下飞行出界
             vanish();
         }else if (locationY <= 0){

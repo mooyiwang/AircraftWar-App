@@ -1,7 +1,7 @@
 package com.hit.sz.item.aircraft;
 
 
-import com.hit.sz.application.MainActivity;
+import com.hit.sz.activity.LevelSoundActivity;
 import com.hit.sz.item.strategy.ShootStrategy;
 import com.hit.sz.view.AbstractGameView;
 
@@ -22,7 +22,7 @@ public class EliteEnemy extends AbstractAircraft implements BombPropActivateUpda
     public void forward(){
         super.forward();
         // 判定 y 轴向下飞行出界
-        if (locationY >= MainActivity.screenHeight) {
+        if (locationY >= LevelSoundActivity.screenHeight) {
             vanish();
         }
     }

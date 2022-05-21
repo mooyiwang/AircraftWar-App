@@ -1,6 +1,6 @@
 package com.hit.sz.item.rankingBoardDAO;
 
-import com.hit.sz.application.MainActivity;
+import com.hit.sz.activity.LevelSoundActivity;
 
 
 
@@ -61,7 +61,7 @@ public class GameRecordDAOImple implements GameRecordDAO{
 
     @Override
     public void exportRecords() throws IOException {
-        switch (MainActivity.GAME_LEVEL){
+        switch (LevelSoundActivity.GAME_LEVEL){
             case 0:
                 fout = new FileOutputStream("records/GameRecordsEasy.txt");
                 break;
@@ -84,7 +84,7 @@ public class GameRecordDAOImple implements GameRecordDAO{
 
     @Override
     public void importRecords() throws IOException {
-        switch (MainActivity.GAME_LEVEL){
+        switch (LevelSoundActivity.GAME_LEVEL){
             case 0:
                 fin = new FileInputStream("records/GameRecordsEasy.txt");
                 break;

@@ -22,7 +22,7 @@ import com.hit.sz.music.MusicService;
 import com.hit.sz.R;
 import com.hit.sz.activity.BoardActivity;
 import com.hit.sz.application.ImageManager;
-import com.hit.sz.application.MainActivity;
+import com.hit.sz.activity.LevelSoundActivity;
 import com.hit.sz.item.aircraft.AbstractAircraft;
 import com.hit.sz.item.aircraft.BossEnemy;
 import com.hit.sz.item.aircraft.EliteEnemy;
@@ -128,8 +128,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         this.context = context;
         loading_img();
 
-        screenWidth = MainActivity.screenWidth;
-        screenHeight = MainActivity.screenHeight;
+        screenWidth = LevelSoundActivity.screenWidth;
+        screenHeight = LevelSoundActivity.screenHeight;
 
         heroAircraft = HeroAircraft.getHeroAircraft();
         enemyAircrafts = new LinkedList<>();
@@ -202,7 +202,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                         curBossNum = 1;
                         bossAppearCnt++;
 
-                        if(MainActivity.GAME_SOUND){
+                        if(LevelSoundActivity.GAME_SOUND){
                             stopMusic();
                             mediaPlayer = MediaPlayer.create(context, R.raw.bgm_boss);
                             mediaPlayer.setLooping(true);
@@ -253,10 +253,10 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                 // 游戏结束
 //                executorService.shutdown();
                 gameOverFlag = true;
-                MainActivity.SCORE = score;
+                LevelSoundActivity.SCORE = score;
                 System.out.println("Game Over!");
 
-                if(MainActivity.GAME_SOUND){
+                if(LevelSoundActivity.GAME_SOUND){
                     stopMusic();
                     myBinder.playSound("game_over");
                 }
@@ -302,7 +302,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
 
-        if(MainActivity.GAME_SOUND){
+        if(LevelSoundActivity.GAME_SOUND){
             myBinder.playSound("bullet");
         }
 
@@ -382,7 +382,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                 if (enemyAircraft.crash(bullet)) {
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
-                    if(MainActivity.GAME_SOUND){
+                    if(LevelSoundActivity.GAME_SOUND){
                         myBinder.playSound("bullet_hit");
 
                     }
@@ -408,7 +408,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                             curBossNum = 0;
                             score += 50;
 
-                            if(MainActivity.GAME_SOUND){
+                            if(LevelSoundActivity.GAME_SOUND){
                                 stopMusic();
                                 mediaPlayer = MediaPlayer.create(context, R.raw.bgm);
                                 mediaPlayer.setLooping(true);
@@ -441,7 +441,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                     //获取到炸弹道具bomb
                     if(prop instanceof BombProp){
 
-                        if(MainActivity.GAME_SOUND){
+                        if(LevelSoundActivity.GAME_SOUND){
                             myBinder.playSound("bomb_explosion");
                         }
                         //观察者模式加入订阅者（包括mob，elite 和 enemy_bullet
@@ -458,7 +458,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                     }
                     //获取到其他道具
                     else {
-                        if(MainActivity.GAME_SOUND) {
+                        if(LevelSoundActivity.GAME_SOUND) {
                             myBinder.playSound("get_supply");
                         }
                     }
@@ -624,8 +624,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int format, int width, int height) {
-        screenHeight = MainActivity.screenHeight;
-        screenWidth = MainActivity.screenWidth;
+        screenHeight = LevelSoundActivity.screenHeight;
+        screenWidth = LevelSoundActivity.screenWidth;
     }
 
     @Override
@@ -636,7 +636,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
     @Override
     public void run() {
-        if(MainActivity.GAME_SOUND) {
+        if(LevelSoundActivity.GAME_SOUND) {
             if(mediaPlayer==null){
                 mediaPlayer = MediaPlayer.create(context, R.raw.bgm);
                 mediaPlayer.setLooping(true);

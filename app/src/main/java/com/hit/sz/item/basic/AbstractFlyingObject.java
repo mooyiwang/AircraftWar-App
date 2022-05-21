@@ -4,7 +4,7 @@ package com.hit.sz.item.basic;
 import android.graphics.Bitmap;
 
 import com.hit.sz.application.ImageManager;
-import com.hit.sz.application.MainActivity;
+import com.hit.sz.activity.LevelSoundActivity;
 import com.hit.sz.item.aircraft.AbstractAircraft;
 
 /**
@@ -78,7 +78,7 @@ public abstract class AbstractFlyingObject {
     public void forward() {
         locationX += 2*speedX;
         locationY += 2*speedY;
-        if (locationX <= 0 || locationX >= MainActivity.screenWidth) {
+        if (locationX <= 0 || locationX >= LevelSoundActivity.screenWidth) {
             // 横向超出边界后反向
             speedX = -speedX;
         }

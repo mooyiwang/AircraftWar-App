@@ -1,9 +1,7 @@
-package com.hit.sz.application;
+package com.hit.sz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,17 +12,10 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-
 
 import com.hit.sz.R;
-import com.hit.sz.activity.GameActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class LevelSoundActivity extends AppCompatActivity {
 
 
     private Button easyButton;
@@ -47,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getScreenHW();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.levelsound_main);
         easyButton = findViewById(R.id.easy);
         mediumButton = findViewById(R.id.medium);
         hardButton = findViewById(R.id.hard);
@@ -59,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
         musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                MainActivity.GAME_SOUND = isChecked;
+                LevelSoundActivity.GAME_SOUND = isChecked;
             }
         });
+
     }
 
     /**
@@ -84,16 +76,16 @@ public class MainActivity extends AppCompatActivity {
             //根据按钮切换游戏难度
             switch (view.getId()){
                 case R.id.easy:
-                    MainActivity.GAME_LEVEL = 0;
+                    LevelSoundActivity.GAME_LEVEL = 0;
                     break;
                 case R.id.medium:
-                    MainActivity.GAME_LEVEL = 1;
+                    LevelSoundActivity.GAME_LEVEL = 1;
                     break;
                 case R.id.hard:
-                    MainActivity.GAME_LEVEL = 2;
+                    LevelSoundActivity.GAME_LEVEL = 2;
                     break;
             }
-            intent = new Intent(MainActivity.this, GameActivity.class);
+            intent = new Intent(LevelSoundActivity.this, GameActivity.class);
             //activity跳转
             startActivity(intent);
         }

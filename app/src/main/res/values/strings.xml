@@ -10,10 +10,22 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="button11">Button</string>
-    <string name="welcome_to_aircraftwar">Welcome to AircraftWar!</string>
+
+
     <string name="easy">简单模式</string>
     <string name="medium">普通模式</string>
     <string name="backgroundMusicChoice">音效</string>
     <string name="hard">困难模式</string>
+    <string name="gameLevelSoundConfig">选择游戏难度和音效</string>
+    <string name="SoundEffect">音效</string>
+    <string name="welcome_sign">欢迎来到飞机大战</string>
+    <string name="login">登录</string>
+    <string name="signup">注册</string>
+    <string name="visitor">游客</string>
+    <string name="login_sign">登录游戏</string>
+    <string name="user_name">用户名</string>
+    <string name="confirm">确定</string>
+    <string name="user_password">密码</string>
+    <string name="back">返回</string>
+    <string name="signup_label">注册账号</string>
 </resources>

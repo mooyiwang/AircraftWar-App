@@ -4,9 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3225" />
+        <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/activity_board.xml" value="0.3333333333333333" />
+        <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/activity_entry.xml" value="0.3333333333333333" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/activity_game.xml" value="0.30416666666666664" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/activity_user.xml" value="0.3333333333333333" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/content_main.xml" value="0.23550724637681159" />
+        <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/entry_login.xml" value="0.3333333333333333" />
+        <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/entry_signup.xml" value="0.30416666666666664" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/fragment_first.xml" value="0.23550724637681159" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/fragment_second.xml" value="0.23550724637681159" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/menu/menu_main.xml" value="0.4036458333333333" />
