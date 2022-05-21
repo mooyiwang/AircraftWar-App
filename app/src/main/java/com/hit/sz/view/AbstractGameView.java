@@ -1,20 +1,27 @@
 package com.hit.sz.view;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import com.hit.sz.Music.MusicService;
 import com.hit.sz.R;
 import com.hit.sz.activity.BoardActivity;
+import com.hit.sz.activity.GameActivity;
 import com.hit.sz.application.ImageManager;
 import com.hit.sz.application.MainActivity;
 import com.hit.sz.item.aircraft.AbstractAircraft;
@@ -34,6 +41,7 @@ import com.hit.sz.item.factory.RandomPropFactory;
 import com.hit.sz.item.prop.AbstractProp;
 import com.hit.sz.item.prop.BombProp;
 import com.hit.sz.item.strategy.ShootStrategy;
+import com.hit.sz.Music.MusicService;
 
 
 import java.util.LinkedList;
@@ -109,6 +117,13 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
     private Context context;
 
+    /**
+     *
+     * 音乐相关
+     */
+    private MediaPlayer mediaPlayer;
+    public MusicService.MyBinder myBinder;
+    private Connect conn;
 
     public AbstractGameView(Context context){
 
@@ -140,6 +155,12 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         setFocusable(true);
         setKeepScreenOn(true);
         setFocusableInTouchMode(true);
+
+        //音乐相关
+        Log.i("music demo","bind service");
+        conn = new Connect();
+        Intent intent = new Intent(context, MusicService.class);
+        context.bindService(intent,conn, Context.BIND_AUTO_CREATE);
     }
 
     /**
@@ -185,8 +206,10 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                         bossAppearCnt++;
 
                         if(MainActivity.GAME_SOUND){
-                            //TODO 停止一般bgm，播放BOSS的bgm
-
+                            stopMusic();
+                            mediaPlayer = MediaPlayer.create(context, R.raw.bgm_boss);
+                            mediaPlayer.setLooping(true);
+                            mediaPlayer.start();
                         }
                     }
 
@@ -237,8 +260,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                 System.out.println("Game Over!");
 
                 if(MainActivity.GAME_SOUND){
-                    //TODO 游戏结束，bgm停止播放，播放game over提示音
-
+                    stopMusic();
+                    myBinder.playSound("game_over");
                 }
 
                 //设置游戏结束标志
@@ -283,7 +306,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         heroBullets.addAll(heroAircraft.shoot());
 
         if(MainActivity.GAME_SOUND){
-            //TODO 英雄射击音乐
+            myBinder.playSound("bullet");
         }
 
     }
@@ -363,8 +386,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
                     if(MainActivity.GAME_SOUND){
-                        //TODO 播放英雄机子弹击中敌机音乐
-
+                        myBinder.playSound("bullet_hit");
 
                     }
                     enemyAircraft.decreaseHp(bullet.getPower());
@@ -390,8 +412,10 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                             score += 50;
 
                             if(MainActivity.GAME_SOUND){
-                                //TODO 将boss背景音切换回一般背景音
-
+                                stopMusic();
+                                mediaPlayer = MediaPlayer.create(context, R.raw.bgm);
+                                mediaPlayer.setLooping(true);
+                                mediaPlayer.start();
                             }
 
                         }
@@ -421,8 +445,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                     if(prop instanceof BombProp){
 
                         if(MainActivity.GAME_SOUND){
-                            //TODO 播放炸弹爆炸音效
-
+                            myBinder.playSound("bomb_explosion");
                         }
                         //观察者模式加入订阅者（包括mob，elite 和 enemy_bullet
                         for(AbstractAircraft enemy:enemyAircrafts){
@@ -439,8 +462,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                     //获取到其他道具
                     else {
                         if(MainActivity.GAME_SOUND) {
-                            //TODO 播放道具生效音效
-
+                            myBinder.playSound("get_supply");
                         }
                     }
 
@@ -617,8 +639,11 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     @Override
     public void run() {
         if(MainActivity.GAME_SOUND) {
-            //TODO 用Service或线程实现音乐播放
-
+            if(mediaPlayer==null){
+                mediaPlayer = MediaPlayer.create(context, R.raw.bgm);
+                mediaPlayer.setLooping(true);
+                mediaPlayer.start();
+            }
         }
         while(!gameOverFlag){
             synchronized (mSurfaceHolder){
@@ -668,4 +693,25 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         ImageManager.updateAll();
     }
 
+    /**
+     *  音乐相关
+     */
+    class Connect implements ServiceConnection {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service){
+            Log.i("music demo","Service Connnected");
+            myBinder = (MusicService.MyBinder)service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    }
+    private void stopMusic(){
+        mediaPlayer.stop();
+        mediaPlayer.reset();
+        mediaPlayer.release();
+        mediaPlayer = null;
+    }
 }
