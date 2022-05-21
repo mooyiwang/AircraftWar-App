@@ -524,8 +524,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         setBackgroundImage();
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, this.backGroundTop-ImageManager.BACKGROUND_IMAGE.getHeight(), mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, this.backGroundTop, mPaint);
-        backGroundTop += 1;
-        if(backGroundTop == screenHeight){
+        backGroundTop += 4;
+        if(backGroundTop >= screenHeight){
             this.backGroundTop = 0;
         }
         // 先绘制子弹，后绘制飞机
@@ -630,6 +630,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+        stopMusic();
         gameOverFlag = true;
     }
 
@@ -649,7 +650,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                 this.action();
             }
             try {
-                Thread.sleep(40);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -706,9 +707,11 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         }
     }
     private void stopMusic(){
-        mediaPlayer.stop();
-        mediaPlayer.reset();
-        mediaPlayer.release();
-        mediaPlayer = null;
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

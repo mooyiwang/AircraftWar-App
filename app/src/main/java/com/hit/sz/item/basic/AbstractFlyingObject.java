@@ -76,8 +76,8 @@ public abstract class AbstractFlyingObject {
      * 若飞行对象触碰到横向边界，横向速度反向
      */
     public void forward() {
-        locationX += speedX;
-        locationY += speedY;
+        locationX += 2*speedX;
+        locationY += 2*speedY;
         if (locationX <= 0 || locationX >= MainActivity.screenWidth) {
             // 横向超出边界后反向
             speedX = -speedX;
