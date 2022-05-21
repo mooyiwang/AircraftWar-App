@@ -2,12 +2,19 @@ package com.hit.sz.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
+import com.hit.sz.Music.MusicService;
 import com.hit.sz.R;
 import com.hit.sz.application.ImageManager;
 import com.hit.sz.application.MainActivity;
@@ -28,7 +35,9 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class GameActivity extends AppCompatActivity {
-
+    /*
+    ** 音乐相关
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,9 @@ public class GameActivity extends AppCompatActivity {
                 setContentView(new HardGameView(this));
                 break;
         }
+
     }
+
 
 
     @Override
