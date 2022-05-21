@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AircraftWarApp">
         <service
-            android:name=".Music.MusicService"
+            android:name=".music.MusicService"
             android:enabled="true"
             android:exported="true" />
         <activity

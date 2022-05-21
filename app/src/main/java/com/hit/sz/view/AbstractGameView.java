@@ -18,10 +18,9 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
-import com.hit.sz.Music.MusicService;
+import com.hit.sz.music.MusicService;
 import com.hit.sz.R;
 import com.hit.sz.activity.BoardActivity;
-import com.hit.sz.activity.GameActivity;
 import com.hit.sz.application.ImageManager;
 import com.hit.sz.application.MainActivity;
 import com.hit.sz.item.aircraft.AbstractAircraft;
@@ -31,7 +30,6 @@ import com.hit.sz.item.aircraft.HeroAircraft;
 import com.hit.sz.item.aircraft.MobEnemy;
 import com.hit.sz.item.basic.AbstractFlyingObject;
 import com.hit.sz.item.bullet.BaseBullet;
-import com.hit.sz.item.bullet.HeroBullet;
 import com.hit.sz.item.factory.BossFactory;
 import com.hit.sz.item.factory.EliteFactory;
 import com.hit.sz.item.factory.EnemyFactory;
@@ -41,7 +39,6 @@ import com.hit.sz.item.factory.RandomPropFactory;
 import com.hit.sz.item.prop.AbstractProp;
 import com.hit.sz.item.prop.BombProp;
 import com.hit.sz.item.strategy.ShootStrategy;
-import com.hit.sz.Music.MusicService;
 
 
 import java.util.LinkedList;
