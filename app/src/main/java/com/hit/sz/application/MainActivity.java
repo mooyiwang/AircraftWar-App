@@ -1,5 +1,6 @@
 package com.hit.sz.application;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private class ButtonListener implements View.OnClickListener {
 
         Intent intent;
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
             //根据按钮切换游戏难度

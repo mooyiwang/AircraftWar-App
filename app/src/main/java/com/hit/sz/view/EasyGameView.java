@@ -59,7 +59,7 @@ public class EasyGameView extends AbstractGameView{
 
     @Override
     public boolean isCreateElite(int timeCnt) {
-        return true;
+        return false;
     }
 
 

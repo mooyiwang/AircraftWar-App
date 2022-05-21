@@ -9,11 +9,14 @@ import androidx.annotation.NonNull;
 
 import com.hit.sz.R;
 import com.hit.sz.application.ImageManager;
+import com.hit.sz.item.strategy.DiffuseShootDown3;
 import com.hit.sz.item.strategy.ShootStrategy;
 
 public class MediumGameView extends AbstractGameView{
     public MediumGameView(Context context) {
         super(context);
+        shootInterval = 5;
+
     }
 
     @Override
@@ -23,7 +26,7 @@ public class MediumGameView extends AbstractGameView{
 
     @Override
     public boolean hasBoss() {
-        return false;
+        return true;
     }
 
     @Override
@@ -33,12 +36,12 @@ public class MediumGameView extends AbstractGameView{
 
     @Override
     public int setScoreThreshold() {
-        return 0;
+        return 500;
     }
 
     @Override
     public int setEnemyHp() {
-        return 0;
+        return 30;
     }
 
     @Override
@@ -48,17 +51,17 @@ public class MediumGameView extends AbstractGameView{
 
     @Override
     public ShootStrategy setBossStrategy() {
-        return null;
+        return new DiffuseShootDown3();
     }
 
     @Override
     public int setEnemyBulletPower() {
-        return 0;
+        return 10;
     }
 
     @Override
     public boolean isCreateElite(int timeCnt) {
-        return false;
+        return true;
     }
 
 

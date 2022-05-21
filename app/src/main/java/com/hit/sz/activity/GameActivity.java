@@ -35,9 +35,6 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class GameActivity extends AppCompatActivity {
-    /*
-    ** 音乐相关
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +43,15 @@ public class GameActivity extends AppCompatActivity {
         loading_img();
         switch (MainActivity.GAME_LEVEL){
             case 0:
+                System.out.println("选择了简单难度！");
                 setContentView(new EasyGameView(this));
                 break;
             case 1:
+                System.out.println("选择了普通难度！");
                 setContentView(new MediumGameView(this));
                 break;
             case 2:
+                System.out.println("选择了困难难度！");
                 setContentView(new HardGameView(this));
                 break;
         }

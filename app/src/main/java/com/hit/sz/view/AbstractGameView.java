@@ -58,7 +58,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
      * 时间间隔(ms)，控制刷新频率
      */
     private int timeInterval = 40;
-
+    int shootInterval = 3;
+    private int intervalCnt=0; //
     /**
      * 飞机，子弹，道具
      */
@@ -289,18 +290,22 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     }
 
     private void shootAction() {
-        for(AbstractAircraft enemyAircraft : enemyAircrafts){
-            if(!(enemyAircraft instanceof MobEnemy)){
-                List<BaseBullet> enemyBullet = enemyAircraft.shoot();
-                if(enemyBullet.size() != 0){
-                    for(BaseBullet bullet:enemyBullets){
-                        bullet.setPower(setEnemyBulletPower());
+        if(intervalCnt==0){
+            intervalCnt = shootInterval;
+            for(AbstractAircraft enemyAircraft : enemyAircrafts){
+                if(!(enemyAircraft instanceof MobEnemy)){
+                    List<BaseBullet> enemyBullet = enemyAircraft.shoot();
+                    if(enemyBullet.size() != 0){
+                        for(BaseBullet bullet:enemyBullets){
+                            bullet.setPower(setEnemyBulletPower());
+                        }
+                        enemyBullets.addAll(enemyBullet);
                     }
-                    enemyBullets.addAll(enemyBullet);
                 }
-            }
 
+            }
         }
+        else intervalCnt-=1;
 
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
