@@ -38,7 +38,7 @@ public class EntryActivity extends AppCompatActivity implements View.OnClickList
                 setContentView(R.layout.entry_signup);
                 break;
             case R.id.visitor:
-                Intent intent = new Intent(EntryActivity.this, LevelSoundActivity.class);
+                Intent intent = new Intent(EntryActivity.this, UserActivity.class);
                 startActivity(intent);
                 break;
         }

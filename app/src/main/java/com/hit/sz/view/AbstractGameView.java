@@ -650,7 +650,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                 this.action();
             }
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
