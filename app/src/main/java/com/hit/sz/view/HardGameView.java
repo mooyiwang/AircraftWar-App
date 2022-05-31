@@ -9,12 +9,14 @@ import androidx.annotation.NonNull;
 
 import com.hit.sz.R;
 import com.hit.sz.application.ImageManager;
+import com.hit.sz.item.strategy.DiffuseShootDown5;
 import com.hit.sz.item.strategy.ShootStrategy;
 
 public class HardGameView extends AbstractGameView{
 
     public HardGameView(Context context) {
         super(context);
+        shootInterval = 3;
     }
 
     @Override
@@ -24,22 +26,22 @@ public class HardGameView extends AbstractGameView{
 
     @Override
     public boolean hasBoss() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isBossHpUp() {
-        return false;
+        return true;
     }
 
     @Override
     public int setScoreThreshold() {
-        return 0;
+        return 500;
     }
 
     @Override
     public int setEnemyHp() {
-        return 0;
+        return 50;
     }
 
     @Override
@@ -49,17 +51,17 @@ public class HardGameView extends AbstractGameView{
 
     @Override
     public ShootStrategy setBossStrategy() {
-        return null;
+        return new DiffuseShootDown5();
     }
 
     @Override
     public int setEnemyBulletPower() {
-        return 0;
+        return 15;
     }
 
     @Override
     public boolean isCreateElite(int timeCnt) {
-        return false;
+        return true;
     }
 
 

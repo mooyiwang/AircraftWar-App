@@ -51,6 +51,8 @@
         android:layout_marginBottom="129dp"
         android:text="@string/visitor"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/signup"
         app:layout_constraintTop_toBottomOf="@+id/signup" />
 </androidx.constraintlayout.widget.ConstraintLayout>

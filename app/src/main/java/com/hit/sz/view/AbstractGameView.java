@@ -18,11 +18,12 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
-import com.hit.sz.music.MusicService;
+
 import com.hit.sz.R;
 import com.hit.sz.activity.BoardActivity;
-import com.hit.sz.application.ImageManager;
+import com.hit.sz.activity.GameActivity;
 import com.hit.sz.activity.LevelSoundActivity;
+import com.hit.sz.application.ImageManager;
 import com.hit.sz.item.aircraft.AbstractAircraft;
 import com.hit.sz.item.aircraft.BossEnemy;
 import com.hit.sz.item.aircraft.EliteEnemy;
@@ -30,6 +31,7 @@ import com.hit.sz.item.aircraft.HeroAircraft;
 import com.hit.sz.item.aircraft.MobEnemy;
 import com.hit.sz.item.basic.AbstractFlyingObject;
 import com.hit.sz.item.bullet.BaseBullet;
+import com.hit.sz.item.bullet.HeroBullet;
 import com.hit.sz.item.factory.BossFactory;
 import com.hit.sz.item.factory.EliteFactory;
 import com.hit.sz.item.factory.EnemyFactory;
@@ -39,6 +41,7 @@ import com.hit.sz.item.factory.RandomPropFactory;
 import com.hit.sz.item.prop.AbstractProp;
 import com.hit.sz.item.prop.BombProp;
 import com.hit.sz.item.strategy.ShootStrategy;
+import com.hit.sz.music.MusicService;
 
 
 import java.util.LinkedList;
@@ -55,7 +58,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
      * 时间间隔(ms)，控制刷新频率
      */
     private int timeInterval = 40;
-
+    int shootInterval = 3;
+    private int intervalCnt=0; //
     /**
      * 飞机，子弹，道具
      */
@@ -165,109 +169,109 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
      */
     public final void action() {
 
-            time += timeInterval;
+        time += timeInterval;
 
 
-            // 周期性执行（控制频率）
-            if (timeCountAndNewCycleJudge()) {
-                System.out.println(time);
-                timeCnt++;
+        // 周期性执行（控制频率）
+        if (timeCountAndNewCycleJudge()) {
+            System.out.println(time);
+            timeCnt++;
 
-                // 控制mob敌机生产
-                if (enemyAircrafts.size() < enemyMaxNumber) {
-                    AbstractAircraft mobEnemy = mobFactory.enemyCreator();
-                    //根据难度设置初始血量
-                    mobEnemy.setHp(setEnemyHp());
-                    enemyAircrafts.add(mobEnemy);
-                }
-
-                //控制Elite敌机生成
-                if(isCreateElite(timeCnt)){
-                    AbstractAircraft eliteEnemy =  eliteFactory.enemyCreator();
-                    eliteEnemy.setHp(setEnemyHp());
-                    enemyAircrafts.add(eliteEnemy);
-                }
-
-                //控制boss敌机生成
-                if(score > scoreThreshold && hasBoss()){
-                    if(curBossNum == 0 ){
-                        AbstractAircraft bossEnemy = bossFactory.enemyCreator();
-                        //设置boss敌机射击策略
-                        bossEnemy.setStrategy(setBossStrategy());
-                        //设置boss敌机血量
-                        if(isBossHpUp()){
-                            bossEnemy.setHp(bossEnemy.getHp()+bossAppearCnt*200);
-                        }
-                        enemyAircrafts.add(bossEnemy);
-                        curBossNum = 1;
-                        bossAppearCnt++;
-
-                        if(LevelSoundActivity.GAME_SOUND){
-                            stopMusic();
-                            mediaPlayer = MediaPlayer.create(context, R.raw.bgm_boss);
-                            mediaPlayer.setLooping(true);
-                            mediaPlayer.start();
-                        }
-                    }
-
-                    //控制Boss出现阈值
-                    lastScoreThreshold = scoreThreshold;
-                    if(bossAppearCnt <= 5){
-                        scoreThreshold += (1000-bossAppearCnt*50);
-                    }
-                    else {
-                        scoreThreshold = 500;
-                    }
-
-                }
-
-                // 飞机射出子弹
-                shootAction();
-                //打印难度
-                hardnessPrint(timeCnt);
+            // 控制mob敌机生产
+            if (enemyAircrafts.size() < enemyMaxNumber) {
+                AbstractAircraft mobEnemy = mobFactory.enemyCreator();
+                //根据难度设置初始血量
+                mobEnemy.setHp(setEnemyHp());
+                enemyAircrafts.add(mobEnemy);
             }
 
-            // 子弹移动
-            bulletsMoveAction();
+            //控制Elite敌机生成
+            if(isCreateElite(timeCnt)){
+                AbstractAircraft eliteEnemy =  eliteFactory.enemyCreator();
+                eliteEnemy.setHp(setEnemyHp());
+                enemyAircrafts.add(eliteEnemy);
+            }
 
-            // 飞机移动
-            aircraftsMoveAction();
+            //控制boss敌机生成
+            if(score > scoreThreshold && hasBoss()){
+                if(curBossNum == 0 ){
+                    AbstractAircraft bossEnemy = bossFactory.enemyCreator();
+                    //设置boss敌机射击策略
+                    bossEnemy.setStrategy(setBossStrategy());
+                    //设置boss敌机血量
+                    if(isBossHpUp()){
+                        bossEnemy.setHp(bossEnemy.getHp()+bossAppearCnt*200);
+                    }
+                    enemyAircrafts.add(bossEnemy);
+                    curBossNum = 1;
+                    bossAppearCnt++;
 
-            // 道具移动
-            propsMoveAction();
+                    if(LevelSoundActivity.GAME_SOUND){
+                        stopMusic();
+                        mediaPlayer = MediaPlayer.create(context, R.raw.bgm_boss);
+                        mediaPlayer.setLooping(true);
+                        mediaPlayer.start();
+                    }
+                }
 
-            // 撞击检测
-            crashCheckAction();
+                //控制Boss出现阈值
+                lastScoreThreshold = scoreThreshold;
+                if(bossAppearCnt <= 5){
+                    scoreThreshold += (1000-bossAppearCnt*50);
+                }
+                else {
+                    scoreThreshold = 500;
+                }
 
-            // 后处理
-            postProcessAction();
+            }
 
-            //每个时刻重绘界面
-            draw();
+            // 飞机射出子弹
+            shootAction();
+            //打印难度
+            hardnessPrint(timeCnt);
+        }
+
+        // 子弹移动
+        bulletsMoveAction();
+
+        // 飞机移动
+        aircraftsMoveAction();
+
+        // 道具移动
+        propsMoveAction();
+
+        // 撞击检测
+        crashCheckAction();
+
+        // 后处理
+        postProcessAction();
+
+        //每个时刻重绘界面
+        draw();
 
 
 
 
-            // 游戏结束检查
-            if (heroAircraft.getHp() <= 0) {
-                // 游戏结束
+        // 游戏结束检查
+        if (heroAircraft.getHp() <= 0) {
+            // 游戏结束
 //                executorService.shutdown();
-                gameOverFlag = true;
-                LevelSoundActivity.SCORE = score;
-                System.out.println("Game Over!");
+            gameOverFlag = true;
+            LevelSoundActivity.SCORE = score;
+            System.out.println("Game Over!");
 
-                if(LevelSoundActivity.GAME_SOUND){
-                    stopMusic();
-                    myBinder.playSound("game_over");
-                }
-
-                //设置游戏结束标志
-                gameOverFlag = true;
-
-                //从GameActivity跳转到BoardActivity(显示排行榜
-                Intent intent = new Intent(context, BoardActivity.class);
-                context.startActivity(intent);
+            if(LevelSoundActivity.GAME_SOUND){
+                stopMusic();
+                myBinder.playSound("game_over");
             }
+
+            //设置游戏结束标志
+            gameOverFlag = true;
+
+            //从GameActivity跳转到BoardActivity(显示排行榜
+            Intent intent = new Intent(context, BoardActivity.class);
+            context.startActivity(intent);
+        }
 
     }
 
@@ -286,18 +290,22 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     }
 
     private void shootAction() {
-        for(AbstractAircraft enemyAircraft : enemyAircrafts){
-            if(!(enemyAircraft instanceof MobEnemy)){
-                List<BaseBullet> enemyBullet = enemyAircraft.shoot();
-                if(enemyBullet.size() != 0){
-                    for(BaseBullet bullet:enemyBullets){
-                        bullet.setPower(setEnemyBulletPower());
+        if(intervalCnt==0){
+            intervalCnt = shootInterval;
+            for(AbstractAircraft enemyAircraft : enemyAircrafts){
+                if(!(enemyAircraft instanceof MobEnemy)){
+                    List<BaseBullet> enemyBullet = enemyAircraft.shoot();
+                    if(enemyBullet.size() != 0){
+                        for(BaseBullet bullet:enemyBullets){
+                            bullet.setPower(setEnemyBulletPower());
+                        }
+                        enemyBullets.addAll(enemyBullet);
                     }
-                    enemyBullets.addAll(enemyBullet);
                 }
-            }
 
+            }
         }
+        else intervalCnt-=1;
 
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
@@ -524,8 +532,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         setBackgroundImage();
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, this.backGroundTop-ImageManager.BACKGROUND_IMAGE.getHeight(), mPaint);
         canvas.drawBitmap(ImageManager.BACKGROUND_IMAGE, 0, this.backGroundTop, mPaint);
-        backGroundTop += 4;
-        if(backGroundTop >= screenHeight){
+        backGroundTop += 1;
+        if(backGroundTop == screenHeight){
             this.backGroundTop = 0;
         }
         // 先绘制子弹，后绘制飞机
@@ -630,7 +638,6 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-        stopMusic();
         gameOverFlag = true;
     }
 
@@ -650,7 +657,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                 this.action();
             }
             try {
-                Thread.sleep(10);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -675,7 +682,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
 
     /**
-    加载图片
+     加载图片
      */
     public void loading_img(){
         ImageManager.BACKGROUND_IMAGE = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
@@ -707,11 +714,9 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         }
     }
     private void stopMusic(){
-        if(mediaPlayer != null){
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
+        mediaPlayer.stop();
+        mediaPlayer.reset();
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 }

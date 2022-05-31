@@ -34,7 +34,7 @@ public class EasyGameView extends AbstractGameView{
 
     @Override
     public int setScoreThreshold() {
-        return 0;
+        return 100;
     }
 
     @Override
@@ -59,7 +59,12 @@ public class EasyGameView extends AbstractGameView{
 
     @Override
     public boolean isCreateElite(int timeCnt) {
-        return true;
+        if(timeCnt % 8 ==0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 

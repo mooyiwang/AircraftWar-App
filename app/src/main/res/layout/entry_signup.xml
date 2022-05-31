@@ -13,9 +13,12 @@
         android:text="@string/signup_label"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/input_name"
         app:layout_constraintEnd_toEndOf="@+id/back_button"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/input_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.287" />
 
     <EditText
         android:id="@+id/input_name"

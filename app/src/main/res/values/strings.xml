@@ -28,4 +28,10 @@
     <string name="user_password">密码</string>
     <string name="back">返回</string>
     <string name="signup_label">注册账号</string>
+    <string name="prop_store_button_sign">道具商城</string>
+    <string name="propstore_sign">道具</string>
+    <string name="online_btn_sign">联机模式</string>
+    <string name="standalone_btn_sign">单机模式</string>
+    <string name="begingame_sign">游戏</string>
+    <string name="user_info_todo">user info todo</string>
 </resources>
