@@ -10,15 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AircraftWarApp">
         <activity
+            android:name=".RankListActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.UserActivity"
-            android:exported="false" >
-        <intent-filter>
-        <action android:name="package.OtherActivity" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.EntryActivity"
             android:exported="true">

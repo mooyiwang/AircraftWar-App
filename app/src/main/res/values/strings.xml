@@ -34,4 +34,6 @@
     <string name="standalone_btn_sign">单机模式</string>
     <string name="begingame_sign">游戏</string>
     <string name="user_info_todo">user info todo</string>
+
+    <string name="ranklist">排行榜</string>
 </resources>
