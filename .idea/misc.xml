@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AircraftWar-App/app/src/main/res/layout/activity_board.xml" value="0.38697916666666665" />
+        <entry key="..\:/AircraftWar-App/app/src/main/res/layout/activity_rank_list.xml" value="0.24320652173913043" />
+        <entry key="..\:/AircraftWar-App/app/src/main/res/layout/board_recycler_view.xml" value="0.24320652173913043" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3225" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/activity_board.xml" value="0.3333333333333333" />
         <entry key="..\:/Code/OOS_practice/AircraftWar-App/app/src/main/res/layout/activity_entry.xml" value="0.3333333333333333" />
