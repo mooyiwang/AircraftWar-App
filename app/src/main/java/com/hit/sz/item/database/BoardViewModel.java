@@ -10,10 +10,16 @@ import java.util.List;
 public class BoardViewModel extends AndroidViewModel {
     private RecordRepository mRepository;
     private static LiveData<List<MyRecord>> mAllRecords;
-
+    private String lvl;
     public BoardViewModel ( Application application) {
         super(application);
         mRepository = new RecordRepository(application);
+        mAllRecords = mRepository.getAllRecords();
+    }
+    public BoardViewModel ( Application application, String lvl) {
+        super(application);
+        mRepository = new RecordRepository(application,lvl);
+        this.lvl = lvl;
         mAllRecords = mRepository.getAllRecords();
     }
 

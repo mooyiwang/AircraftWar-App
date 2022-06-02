@@ -16,6 +16,7 @@ public class HardGameView extends AbstractGameView{
 
     public HardGameView(Context context) {
         super(context);
+        gameLevel = "Hard";
         shootInterval = 3;
     }
 

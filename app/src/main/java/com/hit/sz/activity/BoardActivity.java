@@ -5,9 +5,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+
 import com.hit.sz.R;
 import com.hit.sz.item.database.BoardViewModel;
+import com.hit.sz.item.database.MyRecord;
+import com.hit.sz.item.database.MyViewModelFactory;
 import com.hit.sz.item.database.RecordListAdapter;
 
 
@@ -16,6 +21,7 @@ public class BoardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
         setTitle(R.string.ranklist);
         setContentView(R.layout.activity_board);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -23,13 +29,25 @@ public class BoardActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        boardViewModel = new ViewModelProvider(this).get(BoardViewModel.class);
+        boardViewModel = new ViewModelProvider(
+                this,
+                new MyViewModelFactory( this.getApplication(), intent.getStringExtra("level"))
+        ).get(BoardViewModel.class);
 
-        BoardViewModel.getAllRecords().observe(this, records -> {
-            // Update the cached copy of the words in the adapter.
-            adapter.submitList(records);
+        BoardViewModel.getAllRecords().observe(this, adapter::submitList);
+        //添加当次记录
+        MyRecord thisRecord = new MyRecord(
+                intent.getStringExtra("date"),
+                intent.getStringExtra("name"),
+                intent.getIntExtra("score",0),
+                intent.getStringExtra("level")
+                );
+        boardViewModel.insert(thisRecord);
+        Button button = findViewById(R.id.addBoardButton);
+        button.setOnClickListener( view -> {
+            MyRecord myRecord = new MyRecord("2023.6.2","pppp",1234,"medium");
+            boardViewModel.insert(myRecord);
         });
-
     }
 
 }

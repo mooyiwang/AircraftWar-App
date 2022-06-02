@@ -10,15 +10,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hit.sz.R;
 
 class BoardViewHolder extends RecyclerView.ViewHolder {
-    private final TextView wordItemView;
+    private final TextView nameItemView;
+    private final TextView rankItemView;
+    private final TextView scoreItemView;
+    private final TextView dateItemView;
 
     private BoardViewHolder(View itemView) {
         super(itemView);
-        wordItemView = itemView.findViewById(R.id.nameView);
+        nameItemView = itemView.findViewById(R.id.nameView);
+        rankItemView = itemView.findViewById(R.id.rankView);
+        scoreItemView = itemView.findViewById(R.id.scoreView);
+        dateItemView = itemView.findViewById(R.id.dateView);
     }
 
     public void bind(String text) {
-        wordItemView.setText(text);
+        nameItemView.setText(text);
+        rankItemView.setText(text);
+        scoreItemView.setText(text);
+        dateItemView.setText(text);
+    }
+    public void bind(String name, String score,String date, String rank) {
+        nameItemView.setText(name);
+        rankItemView.setText(rank);
+        scoreItemView.setText(score);
+        dateItemView.setText(date);
     }
 
     static BoardViewHolder create(ViewGroup parent) {

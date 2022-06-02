@@ -16,7 +16,7 @@ public class MediumGameView extends AbstractGameView{
     public MediumGameView(Context context) {
         super(context);
         shootInterval = 5;
-
+        gameLevel = "Medium";
     }
 
     @Override

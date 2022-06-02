@@ -44,8 +44,12 @@ import com.hit.sz.item.strategy.ShootStrategy;
 import com.hit.sz.music.MusicService;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class AbstractGameView extends SurfaceView implements SurfaceHolder.Callback,Runnable {
 
@@ -99,6 +103,9 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     public int scoreThreshold = setScoreThreshold();
     public int lastScoreThreshold = 0;
     private int time = 0;
+    private String userName="游客";
+    private String formatDate;
+    String gameLevel;
 
 
     /**
@@ -162,6 +169,11 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         conn = new Connect();
         Intent intent = new Intent(context, MusicService.class);
         context.bindService(intent,conn, Context.BIND_AUTO_CREATE);
+
+        //日期相关
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd", Locale.getDefault());
+        formatDate = df.format(c);
     }
 
     /**
@@ -270,6 +282,10 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
             //从GameActivity跳转到BoardActivity(显示排行榜
             Intent intent = new Intent(context, BoardActivity.class);
+            intent.putExtra("score",score);
+            intent.putExtra("date",formatDate);
+            intent.putExtra("name",userName);
+            intent.putExtra("level",gameLevel);
             context.startActivity(intent);
         }
 

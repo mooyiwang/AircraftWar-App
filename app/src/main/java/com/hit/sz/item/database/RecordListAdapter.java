@@ -20,7 +20,7 @@ public class RecordListAdapter  extends ListAdapter<MyRecord, BoardViewHolder> {
     @Override
     public void onBindViewHolder(BoardViewHolder holder, int position) {
         MyRecord current = getItem(position);
-        holder.bind(current.getName());
+        holder.bind(current.getName(),current.getScore(),current.getDate(),String.valueOf(position+1));
     }
 
     public static class RecordDiff extends DiffUtil.ItemCallback<MyRecord> {
