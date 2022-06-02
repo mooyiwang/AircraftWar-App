@@ -15,8 +15,13 @@ class RecordRepository {
         DataBase db = DataBase.getDatabase(application);
         mRecordDao = db.RecordDao();
         mAllRecords = mRecordDao.getAllRecordsByRanking();
-    }
 
+    }
+    RecordRepository(Application application, String lvl) {
+        DataBase db = DataBase.getDatabase(application);
+        mRecordDao = db.RecordDao();
+        mAllRecords = mRecordDao.getAllRecordsByLevel(lvl);
+    }
     LiveData<List<MyRecord>> getAllRecords() {
         return mAllRecords;
     }

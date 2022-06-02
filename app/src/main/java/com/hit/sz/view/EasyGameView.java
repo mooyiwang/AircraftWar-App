@@ -15,6 +15,7 @@ public class EasyGameView extends AbstractGameView{
 
     public EasyGameView(Context context){
         super(context);
+        gameLevel = "Easy";
     }
 
     @Override

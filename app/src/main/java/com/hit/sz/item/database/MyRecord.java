@@ -24,4 +24,9 @@ public class MyRecord {
     public String getName(){
         return this.userName;
     }
+    public String getDate() {return this.date;}
+    public String getScore() {return String.valueOf(this.score);}
+    public String getLevel(){
+        return this.level;
+    }
 }

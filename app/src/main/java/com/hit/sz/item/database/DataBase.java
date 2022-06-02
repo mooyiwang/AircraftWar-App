@@ -24,15 +24,17 @@ public abstract class DataBase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            // If you want to keep data through app restarts,
-            // comment out the following block
             databaseWriteExecutor.execute(() -> {
                 RecordDao dao = INSTANCE.RecordDao();
                 dao.deleteAll();
 
-                MyRecord record = new MyRecord("Hello","hello",123,"easy");
+                MyRecord record = new MyRecord("22-6-1","WangMuyi",666,"Hard");
                 dao.insert(record);
-                record = new MyRecord("World","word!!!",123,"easy");
+
+                record = new MyRecord("22-5-27","WangYifu",233,"Easy");
+                dao.insert(record);
+
+                record = new MyRecord("22-5-28","Wang",1000,"Medium");
                 dao.insert(record);
             });
         }

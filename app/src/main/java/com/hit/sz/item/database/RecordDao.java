@@ -11,14 +11,15 @@ import java.util.List;
 @Dao
 public interface RecordDao {
 
-    // allowing the insert of the same word multiple times by passing a
-    // conflict resolution strategy
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(MyRecord myRecord);
 
     @Query("DELETE FROM record_table")
     void deleteAll();
 
-    @Query("SELECT * FROM record_table ORDER BY score ASC")
+    @Query("SELECT * FROM record_table ORDER BY score DESC")
     LiveData<List<MyRecord>> getAllRecordsByRanking();
+
+    @Query("SELECT * FROM record_table WHERE level= :lvl ORDER BY score DESC")
+    LiveData<List<MyRecord>> getAllRecordsByLevel(String lvl);
 }
