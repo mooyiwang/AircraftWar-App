@@ -36,4 +36,5 @@
     <string name="user_info_todo">user info todo</string>
 
     <string name="ranklist">排行榜</string>
+    <string name="pwd_again_sign">确认密码</string>
 </resources>

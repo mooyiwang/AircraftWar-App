@@ -170,6 +170,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         Intent intent = new Intent(context, MusicService.class);
         context.bindService(intent,conn, Context.BIND_AUTO_CREATE);
 
+
         //日期相关
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd", Locale.getDefault());
