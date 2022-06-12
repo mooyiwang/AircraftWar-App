@@ -23,6 +23,11 @@ public class StraightShootUp extends ShootStrategy{
         direction = -1;
     }
 
+    public StraightShootUp(int pw,int nm) {
+        shootNum = 1 + (int)(nm/5);
+        power = (int) (30.0 * (10.0+pw) /10 );
+        direction = -1;
+    }
     @Override
     public List<BaseBullet> shoot(AbstractAircraft aircraft){
         List<BaseBullet> res = new LinkedList<>();

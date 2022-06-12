@@ -15,6 +15,8 @@ import com.hit.sz.item.database.MyRecord;
 import com.hit.sz.item.database.MyViewModelFactory;
 import com.hit.sz.item.database.RecordListAdapter;
 
+import java.util.Objects;
+
 
 public class BoardActivity extends AppCompatActivity {
     private BoardViewModel boardViewModel;
@@ -22,7 +24,21 @@ public class BoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        setTitle(R.string.ranklist);
+        switch (intent.getStringExtra("level")) {
+            case "medium":
+                setTitle("普通模式排行榜");
+                break;
+            case "easy":
+                setTitle("简单模式排行榜");
+                break;
+            case "hard":
+                setTitle("困难模式排行榜");
+                break;
+            default:
+                setTitle("排行榜");
+        }
+
+
         setContentView(R.layout.activity_board);
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final RecordListAdapter adapter = new RecordListAdapter(new RecordListAdapter.RecordDiff());
