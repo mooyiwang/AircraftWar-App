@@ -1,10 +1,13 @@
 package com.hit.sz.activity;
 
-import static android.widget.Toast.LENGTH_SHORT;
 
+import static com.google.android.material.internal.ContextUtils.getActivity;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +23,7 @@ public class PropertyStoreActivity extends AppCompatActivity  implements View.On
 
     private  int maxPoint,currentPoint;
     TextView bloodText,bulletText,speedText,atkText,totText;
-    private  int[] nums = {0,0,0,0};
+    private  int[] nums = new int[5];
     private final int bld =0, atk = 1, spd = 2, blt= 3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +31,9 @@ public class PropertyStoreActivity extends AppCompatActivity  implements View.On
         setContentView(R.layout.activity_property_store);
         //读取数据
         Intent intent = this.getIntent();
-        maxPoint = intent.getIntExtra("maxPoint",10);
-        currentPoint = intent.getIntExtra("curPoint",0);
-
+        nums = intent.getIntArrayExtra("nums");
+        currentPoint = nums[0]+nums[1]+nums[2]+nums[3];
+        maxPoint = nums[4];
         //绑定相关元素
         bloodText = findViewById(R.id.blood_num);
         bulletText = findViewById(R.id.bullet_num);
@@ -54,6 +57,8 @@ public class PropertyStoreActivity extends AppCompatActivity  implements View.On
         bt.setOnClickListener(this);
         bt = findViewById(R.id.attack_up);
         bt.setOnClickListener(this);
+        bt = findViewById(R.id.save_button);
+        bt.setOnClickListener(this);
         updateText();
     }
     @SuppressLint("SetTextI18n")
@@ -65,8 +70,35 @@ public class PropertyStoreActivity extends AppCompatActivity  implements View.On
         if(totText!=null) totText.setText(Integer.toString(maxPoint-currentPoint));
     }
 
+    public void SaveChange(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog alert = builder
+                .setTitle("提示：")
+                .setMessage("确定保存当前加点？\n（之后可以随时更换）")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent replyIntent = new Intent();
+                        replyIntent.putExtra("nums", nums);
+                        setResult(RESULT_OK, replyIntent);
+                        finish();
+                    }
+                }).create();             //创建AlertDialog对象
+        alert.show();                    //显示对话框
+    }
     @Override
     public void onClick(View view) {
+        if(view.getId() == R.id.save_button){
+            SaveChange();
+            return;
+        }
+
         String hint = "null";
         int ty1,ty2;
         switch (view.getId()){
