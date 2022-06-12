@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hit.sz">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AircraftWarApp">
         <activity
+            android:name=".activity.PropertyStoreActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SignupActivity"
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RankListActivity"
             android:exported="false" />
         <activity
             android:name=".activity.UserActivity"
@@ -42,7 +43,6 @@
             android:name=".music.MusicService"
             android:enabled="true"
             android:exported="true" />
-
         <service
             android:name=".webservice.web.WebClientService"
             android:enabled="true"

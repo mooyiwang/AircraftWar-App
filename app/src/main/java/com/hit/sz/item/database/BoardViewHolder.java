@@ -18,7 +18,7 @@ class BoardViewHolder extends RecyclerView.ViewHolder {
     private BoardViewHolder(View itemView) {
         super(itemView);
         nameItemView = itemView.findViewById(R.id.nameView);
-        rankItemView = itemView.findViewById(R.id.rankView);
+        rankItemView = itemView.findViewById (R.id.rankView);
         scoreItemView = itemView.findViewById(R.id.scoreView);
         dateItemView = itemView.findViewById(R.id.dateView);
     }
