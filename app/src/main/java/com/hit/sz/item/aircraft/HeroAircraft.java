@@ -47,7 +47,23 @@ public class HeroAircraft extends AbstractAircraft {
         }
         return heroAircraft;
     }
-
+    /** 双重检查锁定创建 */
+    public static HeroAircraft getHeroAircraft(int hp,int power,int num){
+        if(heroAircraft == null){
+            synchronized (HeroAircraft.class){
+                if(heroAircraft == null){
+                    heroAircraft = new HeroAircraft(
+                            LevelSoundActivity.screenWidth / 2,
+                            LevelSoundActivity.screenHeight - ImageManager.HERO_IMAGE.getHeight() ,
+                            0,
+                            0,
+                            (int) (100.0*(10.0+hp)/10.0),
+                            new StraightShootUp(power,num));
+                }
+            }
+        }
+        return heroAircraft;
+    }
     @Override
     public void forward() {
         // 英雄机由鼠标控制，不通过forward函数移动

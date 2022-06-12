@@ -1,9 +1,12 @@
 package com.hit.sz.view;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -139,10 +142,21 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         this.context = context;
         loading_img();
 
+        //道具商城相关，修改初始参数
+        userName = "tourists";
+        String sharedPrefFile = "com.hit.sz.userpoints" + "." + userName;
+        SharedPreferences userPoints = this.getContext().getSharedPreferences(sharedPrefFile,MODE_PRIVATE);
+        int tmp_hp = userPoints.getInt("num "+0, 0);
+        int tmp_atk = userPoints.getInt("num "+1, 0);
+        int tmp_spd = userPoints.getInt("num "+2, 0);
+        int tmp_blt = userPoints.getInt("num "+3, 0);
+
+
         screenWidth = LevelSoundActivity.screenWidth;
         screenHeight = LevelSoundActivity.screenHeight;
 
-        heroAircraft = HeroAircraft.getHeroAircraft();
+        heroAircraft = HeroAircraft.getHeroAircraft(tmp_hp,tmp_atk,tmp_blt); //heroAircraft = HeroAircraft.getHeroAircraft();
+
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
         enemyBullets = new LinkedList<>();
@@ -175,6 +189,9 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd", Locale.getDefault());
         formatDate = df.format(c);
+
+
+
     }
 
     /**
