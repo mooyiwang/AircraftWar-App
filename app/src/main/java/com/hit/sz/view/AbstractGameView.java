@@ -101,7 +101,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     /**
      * 游戏配置
      */
-    private boolean gameOverFlag = false;
+    public static boolean gameOverFlag = false;
     public static int score = 0;
     public int scoreThreshold = setScoreThreshold();
     public int lastScoreThreshold = 0;
@@ -305,6 +305,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
             intent.putExtra("name",userName);
             intent.putExtra("level",gameLevel);
             context.startActivity(intent);
+
+
         }
 
     }

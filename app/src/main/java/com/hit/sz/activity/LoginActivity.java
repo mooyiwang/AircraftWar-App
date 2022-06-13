@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hit.sz.R;
+import com.hit.sz.webservice.data.UserData;
 import com.hit.sz.webservice.web.WebClientService;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         conn = new WebClientServConn();
         Intent intent = new Intent(LoginActivity.this, WebClientService.class);
         this.bindService(intent, conn, Context.BIND_AUTO_CREATE);
+        System.out.println(webBinder);
         Log.i("serv","login try to");
     }
 
@@ -55,10 +57,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.confirm_button:
                 if(login()){
                     Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
+                    UserData userData = webBinder.getUserData(userName.getText().toString());
+//                    System.out.println("22222222222222");
+//                    System.out.println(userData);
                     intent = new Intent(LoginActivity.this, UserActivity.class);
-                    intent.putExtra("visitor",false);
+                    intent.putExtra("isVisitor",false);
                     intent.putExtra("userName", input_name);
+                    intent.putExtra("userPoint",userData.getBonus());
                     startActivity(intent);
+                    finish();
                 }
                 break;
             case R.id.back_button:

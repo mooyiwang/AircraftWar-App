@@ -25,6 +25,7 @@ public class Signup implements Callable<Boolean> {
     public Boolean call() throws Exception {
         DataPackage sendData = new SignupData(1, name, pwd);
         objOut.writeObject(sendData);
+
         return true;
     }
 }

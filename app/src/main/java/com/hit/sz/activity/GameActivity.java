@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.hit.sz.R;
+import com.hit.sz.view.AbstractGameView;
 import com.hit.sz.view.EasyGameView;
 import com.hit.sz.view.HardGameView;
 import com.hit.sz.view.MediumGameView;
@@ -31,6 +32,13 @@ public class GameActivity extends AppCompatActivity {
                 break;
         }
 
+        new Thread(()->{
+            while(true){
+                if(AbstractGameView.gameOverFlag==true){
+                    finish();
+                }
+            }
+        }).start();
     }
 
 
@@ -42,6 +50,7 @@ public class GameActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
 
 

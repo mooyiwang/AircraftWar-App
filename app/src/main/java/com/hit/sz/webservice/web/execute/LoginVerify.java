@@ -27,6 +27,7 @@ public class LoginVerify implements Callable<Boolean> {
 //        System.out.println(objOut);
         try {
             objOut.writeObject(sendData);
+
 //                System.out.println("555556666");
         } catch (IOException e) {
             e.printStackTrace();

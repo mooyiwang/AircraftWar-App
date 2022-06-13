@@ -12,9 +12,12 @@ import androidx.annotation.NonNull;
 
 import com.hit.sz.webservice.IOStream.MyObjectInputStream;
 import com.hit.sz.webservice.data.DataPackage;
+import com.hit.sz.webservice.data.UserData;
+import com.hit.sz.webservice.web.execute.GetUser;
 import com.hit.sz.webservice.web.execute.LoginVerify;
 import com.hit.sz.webservice.web.execute.NameCheck;
 import com.hit.sz.webservice.web.execute.Signup;
+import com.hit.sz.webservice.web.execute.UpdateUser;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +36,8 @@ import java.util.concurrent.FutureTask;
  * UserData 3
  * BattleData 5
  * NameCheck 6
+ * GetUserData 7
+ * UpdateUser 8
  */
 public class WebClientService extends Service {
     private static final String TAG = "WebClientService";
@@ -163,6 +168,24 @@ public class WebClientService extends Service {
                 e.printStackTrace();
             }
             return isSucc;
+        }
+
+        public UserData getUserData(String name){
+            FutureTask<UserData> task = new FutureTask<>(new GetUser(name, objIn, objOut));
+            new Thread(task).start();
+            UserData userData = null;
+            try {
+                Thread.sleep(500);
+                userData = task.get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return userData;
+        }
+        public void updateUserData(String name, int bonus){
+            new Thread(new UpdateUser(objIn, objOut, name, bonus)).start();
         }
     }
 }
