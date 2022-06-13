@@ -8,17 +8,16 @@ public class UserData extends DataPackage implements Serializable {
     private String name;
     private String password;
     private int bonus;
-    private int level;
-    private HashMap<String, Integer> broughtProps;
 
-    public UserData(int type, String name, String password, int bonus, int level) {
+
+    public UserData(int type, String name, String password, int bonus) {
 
 
         super(type);
         this.name = name;
         this.password = password;
         this.bonus = bonus;
-        this.level = level;
+
     }
 
     public String getName() {
@@ -45,11 +44,4 @@ public class UserData extends DataPackage implements Serializable {
         this.bonus = bonus;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
 }

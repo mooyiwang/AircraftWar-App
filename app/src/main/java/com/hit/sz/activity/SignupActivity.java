@@ -35,13 +35,15 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.entry_signup);
         btnConfirm = findViewById(R.id.confirm_button_2);
         btnBack = findViewById(R.id.back_button_2);
         userName = findViewById(R.id.input_name_2);
         userpwd = findViewById(R.id.input_password_2);
         userpwd_2 = findViewById(R.id.input_pwd_again);
-        btnBack.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+
 
         conn = new WebClientServConn();
         Intent intent = new Intent(SignupActivity.this, WebClientService.class);
@@ -70,7 +72,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         input_pwd = userpwd.getText().toString();
         input_pwd_2 = userpwd_2.getText().toString();
         if(!input_pwd_2.equals(input_pwd)){
-            Toast.makeText(this, "密码不一致", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "两次密码不一致，请重新输入", Toast.LENGTH_SHORT).show();
             return false;
         }
         else{

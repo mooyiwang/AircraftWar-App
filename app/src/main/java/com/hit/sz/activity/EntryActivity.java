@@ -57,7 +57,7 @@ public class EntryActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.visitor:
                 intent = new Intent(EntryActivity.this, UserActivity.class);
-                intent.putExtra("visitor", true);
+                intent.putExtra("isVisitor", true);
                 startActivity(intent);
                 break;
         }

@@ -14,6 +14,7 @@ import com.hit.sz.webservice.IOStream.MyObjectInputStream;
 import com.hit.sz.webservice.data.DataPackage;
 import com.hit.sz.webservice.web.execute.LoginVerify;
 import com.hit.sz.webservice.web.execute.NameCheck;
+import com.hit.sz.webservice.web.execute.Signup;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -121,7 +122,6 @@ public class WebClientService extends Service {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             return notSame;
         }
 
@@ -151,8 +151,18 @@ public class WebClientService extends Service {
          * @param pwd
          * @return
          */
-        public boolean signup(String name, String pwd){return true;}
-
-
+        public boolean signup(String name, String pwd){
+            FutureTask<Boolean> task = new FutureTask<>(new Signup(name, pwd, objIn,objOut));
+            new Thread(task).start();
+            boolean isSucc = true;
+            try {
+                isSucc = task.get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return isSucc;
+        }
     }
 }

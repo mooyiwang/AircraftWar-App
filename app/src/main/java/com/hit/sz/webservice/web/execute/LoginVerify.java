@@ -35,7 +35,6 @@ public class LoginVerify implements Callable<Boolean> {
             try {
                 DataPackage dataPackage = (DataPackage) objIn.readObject();
                 if(dataPackage.getType()==2){
-//                        System.out.println("5555566667777777");
                     CheckData loginResult = (CheckData)dataPackage;
                     return loginResult.isChecked();
                 }
