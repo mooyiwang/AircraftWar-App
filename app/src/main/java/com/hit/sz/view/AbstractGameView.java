@@ -109,9 +109,10 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     private String userName="游客";
     private String formatDate;
     String gameLevel;
-
-    private int onlinePlayScore;
-    private int onlinePlayLife;
+    private int life;
+    private int onlinePlayScore = 0;
+    private int onlinePlayLife = 100;
+    public static boolean isBattleFinish = false;
 
     /**
      * 周期（ms)
@@ -286,6 +287,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
 
         // 游戏结束检查
+        life = heroAircraft.getHp();
         if (heroAircraft.getHp() <= 0) {
             // 游戏结束
 //                executorService.shutdown();
@@ -599,7 +601,6 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         canvas.drawText("LIFE:" + this.heroAircraft.getHp(), x, y, myPaint);
 
         if(GameActivity.isBattle){
-            updateOnlinePlayer();
             int x2 = screenWidth - 30;
             int y2 = 50;
             canvas.drawText("对手SCORE:"+ onlinePlayScore,x2,y2,myPaint);
@@ -767,8 +768,17 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         mediaPlayer = null;
     }
 
-    private void OnlineConmmu(){
-
+    public void updateOnlinePlayer(int onlinePlayScore, int onlinePlayLife, boolean isBattleFinish){
+        this.onlinePlayScore = onlinePlayScore;
+        this.onlinePlayLife = onlinePlayLife;
+        this.isBattleFinish = isBattleFinish;
     }
-    private void updateOnlinePlayer(){}
+
+    public static int getScore() {
+        return score;
+    }
+
+    public int getLife() {
+        return life;
+    }
 }

@@ -10,12 +10,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.hit.sz.view.AbstractGameView;
 import com.hit.sz.webservice.IOStream.MyObjectInputStream;
 import com.hit.sz.webservice.data.DataPackage;
 import com.hit.sz.webservice.data.UserData;
 import com.hit.sz.webservice.web.execute.GetUser;
 import com.hit.sz.webservice.web.execute.LoginVerify;
 import com.hit.sz.webservice.web.execute.NameCheck;
+import com.hit.sz.webservice.web.execute.PlayerCommu;
 import com.hit.sz.webservice.web.execute.PlayerMatch;
 import com.hit.sz.webservice.web.execute.Signup;
 import com.hit.sz.webservice.web.execute.UpdateUser;
@@ -194,6 +196,10 @@ public class WebClientService extends Service {
 
         public void playerMatch(Handler handler){
             new Thread(new PlayerMatch(objIn, objOut, handler)).start();
+        }
+
+        public void playerCommu(AbstractGameView gameView){
+            new Thread(new PlayerCommu(objIn, objOut, gameView));
         }
     }
 }

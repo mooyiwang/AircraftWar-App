@@ -86,6 +86,7 @@ public class LevelSoundActivity extends AppCompatActivity {
                     break;
             }
             intent = new Intent(LevelSoundActivity.this, GameActivity.class);
+            intent.putExtra("isBattle", false);
             //activity跳转
             startActivity(intent);
         }
