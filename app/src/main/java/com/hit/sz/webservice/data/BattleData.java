@@ -1,6 +1,9 @@
 package com.hit.sz.webservice.data;
 
-public class BattleData extends DataPackage {
+import java.io.Serializable;
+
+public class BattleData extends DataPackage implements Serializable {
+    private static final long serialVersionUID = 529201591143307494L;
     private boolean startBattleReq;
     private boolean battleState;
     private int curScore;

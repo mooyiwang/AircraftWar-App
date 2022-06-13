@@ -60,9 +60,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     intent.putExtra("userName", input_name);
                     startActivity(intent);
                 }
-                else{
-
-                }
                 break;
             case R.id.back_button:
                 finish();

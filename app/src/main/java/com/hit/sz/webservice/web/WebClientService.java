@@ -11,18 +11,16 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.hit.sz.webservice.IOStream.MyObjectInputStream;
-import com.hit.sz.webservice.data.CheckData;
 import com.hit.sz.webservice.data.DataPackage;
-import com.hit.sz.webservice.data.LoginData;
+import com.hit.sz.webservice.web.execute.LoginVerify;
+import com.hit.sz.webservice.web.execute.NameCheck;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -33,6 +31,7 @@ import java.util.concurrent.FutureTask;
  * CheckData 2
  * UserData 3
  * BattleData 5
+ * NameCheck 6
  */
 public class WebClientService extends Service {
     private static final String TAG = "WebClientService";
@@ -106,12 +105,34 @@ public class WebClientService extends Service {
 
     public class WebBinder extends Binder {
 
+        /**
+         * 注册时重名检测
+         * @param name
+         * @return
+         */
         public boolean signupNameCheck(String name){
-            return true;
+            FutureTask<Boolean> task = new FutureTask<>(new NameCheck(name, objIn, objOut));
+            new Thread(task).start();
+            boolean notSame = true;
+            try {
+                notSame = task.get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return notSame;
         }
 
+        /**
+         * 登录校验
+         * @param name
+         * @param pwd
+         * @return
+         */
         public boolean loginVerify(String name, String pwd){
-            FutureTask<Boolean> task = new FutureTask<Boolean>(new LoginVerify(name, pwd));
+            FutureTask<Boolean> task = new FutureTask<Boolean>(new LoginVerify(name, pwd, objIn, objOut));
             new Thread(task).start();
             boolean isSucc = false;
             try {
@@ -124,44 +145,14 @@ public class WebClientService extends Service {
             return isSucc;
         }
 
+        /**
+         * 注册操作
+         * @param name
+         * @param pwd
+         * @return
+         */
         public boolean signup(String name, String pwd){return true;}
 
+
     }
-
-    class LoginVerify implements Callable<Boolean>{
-
-        private String name;
-        private String pwd;
-        public LoginVerify(String name, String pwd){
-            this.name = name;
-            this.pwd = pwd;
-        }
-        @Override
-        public Boolean call() throws Exception {
-            data = new LoginData(0, name, pwd);
-            System.out.println(objOut);
-            try {
-                objOut.writeObject(data);
-                System.out.println("555556666");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            while (true){
-                try {
-                    DataPackage dataPackage = (DataPackage) objIn.readObject();
-                    if(dataPackage.getType()==2){
-                        System.out.println("5555566667777777");
-                        CheckData loginResult = (CheckData)dataPackage;
-                        return loginResult.isChecked();
-                    }
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-
 }

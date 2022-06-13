@@ -52,14 +52,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.back_button_2:
-                intent = new Intent(SignupActivity.this, EntryActivity.class);
-                startActivity(intent);
+                finish();
                 break;
             case R.id.confirm_button_2:
                 if(signup()){
                     Toast.makeText(this, "注册成功！请登录。", Toast.LENGTH_SHORT).show();
                     intent = new Intent(SignupActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 break;
         }

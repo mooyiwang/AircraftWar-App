@@ -1,8 +1,10 @@
 package com.hit.sz.webservice.data;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class UserData extends DataPackage{
+public class UserData extends DataPackage implements Serializable {
+    private static final long serialVersionUID = 529201591143307494L;
     private String name;
     private String password;
     private int bonus;
@@ -10,6 +12,8 @@ public class UserData extends DataPackage{
     private HashMap<String, Integer> broughtProps;
 
     public UserData(int type, String name, String password, int bonus, int level) {
+
+
         super(type);
         this.name = name;
         this.password = password;

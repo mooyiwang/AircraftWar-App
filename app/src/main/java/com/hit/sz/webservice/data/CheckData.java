@@ -1,6 +1,9 @@
 package com.hit.sz.webservice.data;
 
-public class CheckData extends DataPackage{
+import java.io.Serializable;
+
+public class CheckData extends DataPackage implements Serializable {
+    private static final long serialVersionUID = 529201591143307494L;;
     private boolean checked;
 
     public CheckData(int type, boolean checked) {

@@ -1,6 +1,11 @@
 package com.hit.sz.webservice.data;
 
-public class SignupData extends DataPackage{
+import java.io.Serializable;
+
+public class SignupData extends DataPackage implements Serializable {
+
+
+    private static final long serialVersionUID = 529201591143307494L;
     private String name;
     private String pwd;
 
