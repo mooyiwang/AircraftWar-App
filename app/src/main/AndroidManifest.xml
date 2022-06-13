@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AircraftWarApp">
         <activity
+            android:name=".activity.WaitingActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.PropertyStoreActivity"
             android:exported="false" />
         <activity

@@ -39,4 +39,5 @@
     <string name="pwd_again_sign">确认密码</string>
     <string name="test1">11</string>
     <string name="logout">注销</string>
+    <string name="matching_sign">匹配中，请稍后...</string>
 </resources>

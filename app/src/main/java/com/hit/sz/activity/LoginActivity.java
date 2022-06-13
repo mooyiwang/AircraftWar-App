@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private WebClientService.WebBinder webBinder;
     private WebClientServConn conn;
-
     private Intent intent;
 
 

@@ -110,6 +110,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     private String formatDate;
     String gameLevel;
 
+    private int onlinePlayScore;
+    private int onlinePlayLife;
 
     /**
      * 周期（ms)
@@ -275,6 +277,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
 
         // 后处理
         postProcessAction();
+
 
         //每个时刻重绘界面
         draw();
@@ -595,6 +598,14 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         y = y + 50;
         canvas.drawText("LIFE:" + this.heroAircraft.getHp(), x, y, myPaint);
 
+        if(GameActivity.isBattle){
+            updateOnlinePlayer();
+            int x2 = screenWidth - 30;
+            int y2 = 50;
+            canvas.drawText("对手SCORE:"+ onlinePlayScore,x2,y2,myPaint);
+            canvas.drawText("对手LIFE:"+ onlinePlayLife ,x2,y2+50,myPaint);
+        }
+
         //通过unlockCanvasAndPost(mCanvas)方法对画布内容进行提交
         if(canvas != null){
             mSurfaceHolder.unlockCanvasAndPost(canvas);
@@ -755,4 +766,9 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         mediaPlayer.release();
         mediaPlayer = null;
     }
+
+    private void OnlineConmmu(){
+
+    }
+    private void updateOnlinePlayer(){}
 }

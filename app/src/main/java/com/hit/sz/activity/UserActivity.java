@@ -117,7 +117,8 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 someActivityResultLauncher.launch(intent2);
                 break;
             case R.id.online_button:
-
+                Intent intent4 = new Intent(UserActivity.this, WaitingActivity.class);
+                startActivity(intent4);
                 break;
             case R.id.logout_button:
                 if(isVisitor == false){

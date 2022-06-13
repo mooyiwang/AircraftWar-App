@@ -16,6 +16,7 @@ import com.hit.sz.webservice.data.UserData;
 import com.hit.sz.webservice.web.execute.GetUser;
 import com.hit.sz.webservice.web.execute.LoginVerify;
 import com.hit.sz.webservice.web.execute.NameCheck;
+import com.hit.sz.webservice.web.execute.PlayerMatch;
 import com.hit.sz.webservice.web.execute.Signup;
 import com.hit.sz.webservice.web.execute.UpdateUser;
 
@@ -38,6 +39,7 @@ import java.util.concurrent.FutureTask;
  * NameCheck 6
  * GetUserData 7
  * UpdateUser 8
+ * BattleReq 9
  */
 public class WebClientService extends Service {
     private static final String TAG = "WebClientService";
@@ -184,8 +186,14 @@ public class WebClientService extends Service {
             }
             return userData;
         }
+
+
         public void updateUserData(String name, int bonus){
             new Thread(new UpdateUser(objIn, objOut, name, bonus)).start();
+        }
+
+        public void playerMatch(Handler handler){
+            new Thread(new PlayerMatch(objIn, objOut, handler)).start();
         }
     }
 }
