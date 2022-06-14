@@ -71,6 +71,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         input_name = userName.getText().toString();
         input_pwd = userpwd.getText().toString();
         input_pwd_2 = userpwd_2.getText().toString();
+        if(input_name.equals("") || input_pwd.equals("")){
+            Toast.makeText(SignupActivity.this, "请输入有效用户名或密码", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if(!input_pwd_2.equals(input_pwd)){
             Toast.makeText(this, "两次密码不一致，请重新输入", Toast.LENGTH_SHORT).show();
             return false;

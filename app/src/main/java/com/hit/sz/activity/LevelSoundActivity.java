@@ -89,6 +89,7 @@ public class LevelSoundActivity extends AppCompatActivity {
             intent.putExtra("isBattle", false);
             //activity跳转
             startActivity(intent);
+            finish();
         }
     }
 

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -117,9 +118,13 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 someActivityResultLauncher.launch(intent2);
                 break;
             case R.id.online_button:
-                Intent intent4 = new Intent(UserActivity.this, WaitingActivity.class);
-                startActivity(intent4);
-                break;
+                if(isVisitor){
+                    Toast.makeText(UserActivity.this, "请登录！", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent4 = new Intent(UserActivity.this, WaitingActivity.class);
+                    startActivity(intent4);
+                    break;
+                }
             case R.id.logout_button:
                 if(isVisitor == false){
                     webBinder.updateUserData(userName, cur_points);

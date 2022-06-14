@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.Button;
 
 import com.hit.sz.R;
@@ -23,6 +24,9 @@ public class BoardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        GameActivity.instance.finish();
+
         Intent intent = getIntent();
         switch (intent.getStringExtra("level")) {
             case "medium":
@@ -64,6 +68,14 @@ public class BoardActivity extends AppCompatActivity {
             MyRecord myRecord = new MyRecord("2023.6.2","pppp",1234,"medium");
             boardViewModel.insert(myRecord);
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            this.finish();
+        }
+        return true;
     }
 
 }

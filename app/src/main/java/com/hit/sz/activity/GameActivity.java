@@ -1,5 +1,6 @@
 package com.hit.sz.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;
@@ -7,7 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -21,6 +25,8 @@ import com.hit.sz.webservice.web.WebClientService;
 public class GameActivity extends AppCompatActivity {
 
     public static boolean isBattle;
+    public static GameActivity instance;
+    private AbstractGameView game;
 
 
     static {
@@ -33,6 +39,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        instance = this;
 
         Intent intent2 = getIntent();
         Bundle extras = intent2.getExtras();
@@ -43,8 +50,8 @@ public class GameActivity extends AppCompatActivity {
         this.bindService(intent, conn, Context.BIND_AUTO_CREATE);
 
         if(isBattle){
-            AbstractGameView newGame = new MediumGameView(this);
-            setContentView(newGame);
+            game = new MediumGameView(this);
+            setContentView(game);
 
             new Thread(()->{
                 try {
@@ -52,40 +59,51 @@ public class GameActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                webBinder.playerCommu(newGame);
+                webBinder.playerCommu(game);
             }).start();
 
         }
         else{
             switch (LevelSoundActivity.GAME_LEVEL){
                 case 0:
-                    setContentView(new EasyGameView(this));
+                    game = new EasyGameView(this);
+                    setContentView(game);
                     break;
                 case 1:
-                    setContentView(new MediumGameView(this));
+                    game = new MediumGameView(this);
+                    setContentView(game);
                     break;
                 case 2:
-                    setContentView(new HardGameView(this));
+                    game = new HardGameView(this);
+                    setContentView(game);
                     break;
             }
         }
 
+
         new Thread(()->{
             while(true){
                 if(isBattle==false){
-                    if(AbstractGameView.gameOverFlag==true){
+                    if(game.gameOverFlag==true){
+                        Looper.prepare();
                         Toast.makeText(GameActivity.this, "游戏结束", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Looper.loop();
+                        break;
                     }
                 }
                 else{
-                    if(AbstractGameView.gameOverFlag==true && AbstractGameView.isBattleFinish==false){
+                    if(game.gameOverFlag==true && game.isBattleFinish==false){
+                        Looper.prepare();
                         Toast.makeText(GameActivity.this, "对战失败！游戏结束", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Looper.loop();
+                        break;
+
                     }
-                    if(AbstractGameView.gameOverFlag==false && AbstractGameView.isBattleFinish==true){
+                    if(game.gameOverFlag==false && game.isBattleFinish==true){
+                        Looper.prepare();
                         Toast.makeText(GameActivity.this, "恭喜！对战成功！", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Looper.loop();
+                        break;
                     }
                 }
             }

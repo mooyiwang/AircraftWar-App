@@ -11,13 +11,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.hit.sz.R;
 import com.hit.sz.webservice.web.WebClientService;
 
-public class WaitingActivity extends AppCompatActivity {
+public class WaitingActivity extends AppCompatActivity implements View.OnClickListener {
 
     private boolean isMatched = false;
+    private Button btnStartWaiting;
+    private TextView txtWating;
 
     private WebClientService.WebBinder webBinder;
     private WebClientServConn conn;
@@ -28,6 +34,10 @@ public class WaitingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting);
+        btnStartWaiting = findViewById(R.id.start_match_button);
+        btnStartWaiting.setOnClickListener(this);
+        txtWating = findViewById(R.id.waiting_sign);
+
         isMatched = false;
 
         conn = new WebClientServConn();
@@ -43,7 +53,6 @@ public class WaitingActivity extends AppCompatActivity {
             }
         };
 
-        webBinder.playerMatch(handler);
 
         new Thread(()->{
             while(true){
@@ -57,6 +66,14 @@ public class WaitingActivity extends AppCompatActivity {
         }).start();
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view.getId()==R.id.start_match_button){
+            webBinder.playerMatch(handler);
+            txtWating.setText("匹配中，请稍后..");
+        }
+    }
+
     class WebClientServConn implements ServiceConnection {
 
         @Override
@@ -67,5 +84,13 @@ public class WaitingActivity extends AppCompatActivity {
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            this.finish();
+        }
+        return true;
     }
 }

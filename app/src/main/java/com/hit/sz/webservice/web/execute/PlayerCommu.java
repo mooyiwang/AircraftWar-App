@@ -28,13 +28,14 @@ public class PlayerCommu extends Thread{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            while(true){
+
                 try {
                     DataPackage enemyData = (DataPackage) objIn.readObject();
                     if(enemyData.getType()==5){
                         BattleData enemy = (BattleData) enemyData;
                         if(enemy.getCurLife()<=0){
                             gameView.updateOnlinePlayer(enemy.getCurScore(), enemy.getCurLife(), true);
+                            break;
                         }
                         gameView.updateOnlinePlayer(enemy.getCurScore(), enemy.getCurLife(), false);
                     }
@@ -44,7 +45,6 @@ public class PlayerCommu extends Thread{
                     e.printStackTrace();
                 }
 
-            }
         }
     }
 

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -101,7 +102,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     /**
      * 游戏配置
      */
-    public static boolean gameOverFlag = false;
+    public  boolean gameOverFlag = false;
     public static int score = 0;
     public int scoreThreshold = setScoreThreshold();
     public int lastScoreThreshold = 0;
@@ -112,7 +113,7 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
     private int life;
     private int onlinePlayScore = 0;
     private int onlinePlayLife = 100;
-    public static boolean isBattleFinish = false;
+    public boolean isBattleFinish = false;
 
     /**
      * 周期（ms)
@@ -164,6 +165,9 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
         heroBullets = new LinkedList<>();
         enemyBullets = new LinkedList<>();
         props = new LinkedList<>();
+        gameOverFlag = false;
+        //
+        heroAircraft.setHp((int)(100.0*(10.0+tmp_hp)/10.0));
 
         /**
          * 实例化 工厂类
@@ -310,6 +314,8 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
             intent.putExtra("name",userName);
             intent.putExtra("level",gameLevel);
             context.startActivity(intent);
+
+            System.out.println("22222222223333333333311111111");
 
 
         }
@@ -705,11 +711,12 @@ public abstract class AbstractGameView extends SurfaceView implements SurfaceHol
                 this.action();
             }
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
 
     }
 
