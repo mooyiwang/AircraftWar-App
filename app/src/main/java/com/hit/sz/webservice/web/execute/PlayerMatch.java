@@ -10,8 +10,9 @@ import com.hit.sz.webservice.data.DataPackage;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.concurrent.Callable;
 
-public class PlayerMatch extends Thread{
+public class PlayerMatch implements Runnable {
     private MyObjectInputStream objIn;
     private ObjectOutputStream objOut;
     private Handler handler;
@@ -21,6 +22,7 @@ public class PlayerMatch extends Thread{
         this.objOut = objOut;
         this.handler = handler;
     }
+
 
     @Override
     public void run() {
@@ -37,6 +39,10 @@ public class PlayerMatch extends Thread{
                 if(dataPackage.getType()==2){
                     CheckData result = (CheckData)dataPackage;
                     isMatched = result.isChecked();
+                    Message msg = new Message();
+                    msg.what= 1000;
+                    msg.obj = true;
+                    handler.sendMessage(msg);
                     break;
                 }
             } catch (ClassNotFoundException e) {
@@ -45,12 +51,5 @@ public class PlayerMatch extends Thread{
                 e.printStackTrace();
             }
         }
-        if(isMatched){
-            Message msg = new Message();
-            msg.what = 1;
-            msg.obj = true;
-            handler.sendMessage(msg);
-        }
-
     }
 }

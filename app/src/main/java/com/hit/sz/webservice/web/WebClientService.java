@@ -10,6 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.hit.sz.activity.BoardActivity;
 import com.hit.sz.view.AbstractGameView;
 import com.hit.sz.webservice.IOStream.MyObjectInputStream;
 import com.hit.sz.webservice.data.DataPackage;
@@ -199,7 +200,7 @@ public class WebClientService extends Service {
         }
 
         public void playerCommu(AbstractGameView gameView){
-            new Thread(new PlayerCommu(objIn, objOut, gameView));
+            new Thread(new PlayerCommu(objIn, objOut, gameView)).start();
         }
     }
 }

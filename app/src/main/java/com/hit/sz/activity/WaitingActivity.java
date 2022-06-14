@@ -10,6 +10,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
@@ -44,14 +45,16 @@ public class WaitingActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(WaitingActivity.this, WebClientService.class);
         this.bindService(intent, conn, Context.BIND_AUTO_CREATE);
 
+
         handler = new Handler(getMainLooper()){
             @Override
             public void handleMessage(@NonNull Message msg) {
-                if(msg.what==1){
+                if(msg.what==1000){
                     isMatched = (boolean) msg.obj;
                 }
             }
         };
+
 
 
         new Thread(()->{
@@ -61,6 +64,7 @@ public class WaitingActivity extends AppCompatActivity implements View.OnClickLi
                     intent1.putExtra("isBattle", true);
                     startActivity(intent1);
                     finish();
+                    break;
                 }
             }
         }).start();
